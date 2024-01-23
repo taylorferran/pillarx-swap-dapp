@@ -54,7 +54,6 @@ function App() {
     signer.getAddress()
       .then(address => {
         setSignerAddress(address)
-        console.log(signerAddress);
 
         pillarXContract.balanceOf(address)
           .then(res => {
@@ -94,9 +93,10 @@ function App() {
     <div className="App">
       <div className="appNav">
         <div className="my-2 buttonContainer buttonContainerTop">
-          <PageButton name={"Swap"} isBold={true} />
-          <PageButton name={"Pool"} />
-          <PageButton name={"Charts"} />
+          {/* TODO build mint buttons   */}
+          <PageButton name={"Mint 100 PillarX"} link={"https://google.com"} isBold={true} />
+          <PageButton name={"Mint 100 PillarY"} link={"https://twitter.com"} isBold={true} />
+          <PageButton name={"Goerli Faucet"} link={"https://goerlifaucet.com/"} isBold={true} />
         </div>
 
         <div className="rightNav">
