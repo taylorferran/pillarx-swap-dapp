@@ -7,10 +7,10 @@ import PageButton from './components/PageButton';
 import ConnectButton from './components/ConnectButton';
 import ConfigModal from './components/ConfigModal';
 import CurrencyField from './components/CurrencyField';
+import MintButton from './components/MintButton';
 
 import BeatLoader from "react-spinners/BeatLoader";
 import { getPillarXContract, getPillarYContract, getPrice, runSwap } from './AlphaRouterService'
-const PillarXABI = require('./constants/PillarXABI.json')
 
 
 function App() {
@@ -22,7 +22,6 @@ function App() {
   const [deadlineMinutes, setDeadlineMinutes] = useState(10)
   const [showModal, setShowModal] = useState(undefined)
 
-  const [inputAmount, setInputAmount] = useState(undefined)
   const [outputAmount, setOutputAmount] = useState(undefined)
   const [transaction, setTransaction] = useState(undefined)
   const [loading, setLoading] = useState(undefined)
@@ -73,29 +72,8 @@ function App() {
     getWalletAddress()
   }
 
-  const mintPillarX = async () => {
-
-    try {
-    const pillarXContract = new Contract(
-      "0x9e6ce019Cd6e02D905Ee454718F3DF149fe4e5F8",
-      PillarXABI,
-      signer
-    );
-    
-    const tx = await pillarXContract.mint(100);
-
-    setLoading(true);
-    await tx.wait();
-    setLoading(false);
-    window.alert("100 PillarX minted");
-  } catch (err) {
-    console.error(err);
-  }
-  }
-
   const getSwapPrice = (inputAmount) => {
     setLoading(true)
-    setInputAmount(inputAmount)
 
     const swap = getPrice(
       inputAmount,
@@ -115,9 +93,7 @@ function App() {
     <div className="App">
       <div className="appNav">
         <div className="my-2 buttonContainer buttonContainerTop">
-          {/* TODO build mint buttons   */}
-          <PageButton name={"Mint 100 PillarX"} isBold={true} />
-          <PageButton name={"Mint 100 PillarY"} link={"https://twitter.com"} isBold={true} />
+          <MintButton name={"Mint 100 PillarX"} signer={signer} isBold={true} />
           <PageButton name={"Goerli Faucet"} link={"https://goerlifaucet.com/"} isBold={true} />
         </div>
 

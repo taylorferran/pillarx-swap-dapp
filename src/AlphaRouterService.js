@@ -34,8 +34,6 @@ export const getPrice = async (inputAmount, slippageAmount, deadline, walletAddr
     const wei = ethers.utils.parseUnits((inputAmount.toString()), 18)
     const currencyAmount = CurrencyAmount.fromRawAmount(PX, JSBI.BigInt(wei))
 
-    console.log("XXXX: hit here")
-
     const route = await router.route(
         currencyAmount,
         PY,
@@ -46,8 +44,6 @@ export const getPrice = async (inputAmount, slippageAmount, deadline, walletAddr
             deadline: deadline,
         }
     )
-
-    console.log("XXXX: hit here2")
 
     const transaction = {
         data: route.methodParameters.calldata,
